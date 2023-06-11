@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翻译表</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+    <style>
+        .audio_play {
+            cursor: pointer;
+        }
+
+        .translate-block>table {
+            width: 90%;
+        }
+
+        .translate-block>table tr {
+            display: flex;
+        }
+
+        td {
+            flex-grow: 1;
+            flex-shrink: 1;
+            min-width: 24rem;
+            min-height: 6rem;
+            margin: 0.2em 0.5em;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            border: 1px solid #ccc;
+        }
+
+        textarea::-webkit-scrollbar {
+            width: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="translate-block">
+        <h4>单词</h4>
+        <table id="word">
+            <thead>
+                <tr>
+                    <th>单词</th>
+                    <th>读音</th>
+                    <th>释义</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="translate-block">
+        <h4>词组</h4>
+        <table id="phrase">
+            <thead>
+                <tr>
+                    <th>词组</th>
+                    <th>读音</th>
+                    <th>释义</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="translate-block">
+        <h4>句子</h4>
+        <table id="sentence">
+            <thead>
+                <tr>
+                    <th>句子</th>
+                    <th>释义</th>
+                    <th>读音</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        fetch('data/result.json')
+            .then(res => res.json())
+            .then(data => {
+                window.ps = data.ps;
+                delete data.ps;
+                for (let k in data) {
+                    switch (k) {
+                        case 'word':
+                            for (let j in data[k]) {
+                                let row = $('<tr>')
+                                let src = $(`<td>${j}</td>`)
+                                row.append(src); {
+                                    // 读音
+                                    let voice = data[k][j].voice,
+                                        _ve = $('<td>'),
+                                        _ul = $('<ul class="voice-block">')
+                                    _ve.append(_ul)
+                                    if (voice) {
+                                        for (let k in voice) {
+                                            _ul.append(
+                                                `<li><span class="audio_play">${k.replace('_phonic', '')}:</span> <span>[${voice[k]}]</span></li>`
+                                            )
+                                        }
+                                        _ul.children('li').first().children('span').first().append(
+                                            `<audio src="${data[k][j].audio[1]}"></audio>`)
+                                        _ul.children('li').last().children('span').first().append(
+                                            `<audio src="${data[k][j].audio[0]}"></audio>`)
+                                    } else {
+                                        _ul.append(
+                                            `<li><span class="audio_play">en<audio src="${data[k][j].audio[1]}"></audio></span> <span class="audio_play">us<audio src="${data[k][j].audio[0]}"></audio></span></li>`
+                                        )
+                                    }
+                                    row.append(_ve)
+                                } {
+                                    // 词义
+                                    mean = data[k][j].mean[0].mean
+                                    let par = $('<td>')
+                                    let ul = $('<ul>');
+                                    par.append(ul)
+                                    try {
+                                        mean.forEach(e => {
+                                            let pre = $(`<li class="pre">${e.pre ?? ''}</li>`)
+                                            ul.append(pre);
+                                            let ms = Object.keys(e.cont);
+                                            ms.forEach(w => {
+                                                ul.append(`<li>${w}</li>`)
+                                            })
+                                            row.append(par)
+                                        })
+                                    } catch (err) {
+                                        console.log(data[k][j].mean);
+                                        row.append(`<td><li>${data[k][j].mean}</li></td>`)
+                                    }
+                                    // console.log(mean);
+                                    $('#' + k).append(row)
+                                }
+                            }
+                            break;
+                        case 'phrase': {
+                            Object.keys(data[k]).forEach(e => {
+                                // 原句
+                                let row = $('<tr>'),
+                                    td_src = $(`<td><textarea readonly></textarea></td>`)
+                                td_src
+                                    .children('textarea').val(e)
+                                // 释义
+                                let mean = data[k][e].mean,
+                                    td_mean = $(`<td><textarea disabled></textarea></td>`)
+                                // console.log(mean);
+                                td_mean.children('textarea').val(mean)
+                                // 读音
+                                td_audio =
+                                    $(`<td>
+                                <span class="audio_play">
+                                    英：
+                                    <audio src="${data[k][e].audio[0]}"></audio>
+                                </span>
+                                <span class="audio_play">
+                                    美：
+                                    <audio src="${data[k][e].audio[1]}"></audio>
+                                </span>
+                            </td>`)
+
+                                row.append(td_src)
+                                row.append(td_mean)
+                                row.append(td_audio)
+                                $('#' + k).append(row)
+                            })
+                            // console.log(data[k][j]);
+                        }
+                        break;
+                    case 'sentence': {
+                        Object.keys(data[k]).forEach(e => {
+                            // 原句
+                            let row = $('<tr>'),
+                                td_src = $(`<td><textarea readonly></textarea></td>`)
+                            td_src
+                                .children('textarea').val(e)
+                            // 释义
+                            let mean = data[k][e].split,
+                                td_mean = $(`<td><textarea disabled></textarea></td>`)
+                            mean.forEach(text => {
+                                td_mean.children('textarea').val(td_mean.children('textarea')
+                                    .val() + text + '\n')
+                            })
+                            // 读音
+                            td_audio =
+                                $(`<td>
+                                <span class="audio_play">
+                                    英：
+                                    <audio src="${data[k][e].audio[0]}"></audio>
+                                </span>
+                                <span class="audio_play">
+                                    美：
+                                    <audio src="${data[k][e].audio[1]}"></audio>
+                                </span>
+                            </td>`)
+
+                            row.append(td_src)
+                            row.append(td_mean)
+                            row.append(td_audio)
+                            $('#' + k).append(row)
+                        })
+                    }
+                    break;
+                    }
+                    $('#' + k).DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "lengthMenu": [100, 10, 25, 50, 100]
+                    });
+                }
+
+                $('.audio_play').get().forEach(elem => {
+                    elem.addEventListener('click', () => {
+                        if (elem.querySelector('audio').paused) {
+                            elem.querySelector('audio').play()
+                        } else {
+                            elem.querySelector('audio').pause()
+                        }
+                    })
+                })
+            })
+    </script>
+</body>
+
+</html>

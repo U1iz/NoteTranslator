@@ -1,0 +1,124 @@
+{
+  "name": "NoteTranslator",
+  "productName": "NoteTranslator",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo go",
+    "start": "electron .",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint src --color",
+    "package": "electron-builder"
+  },
+  "build": {
+    "appId": "appTest",
+    "productName": "NoteTranslator",
+    "asar": false,
+    "electronDownload": {
+      "version": "24.3.0",
+      "platform": "win32",
+      "arch": "x64",
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "icon": "../electron-files/icon.ico",
+    "win": {
+      "target": [
+        "nsis",
+        "7z"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "../electron-files/icon.ico",
+      "installerHeaderIcon": "../electron-files/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": false
+    }
+  },
+  "keywords": [],
+  "author": "33 2",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "NoteTranslator"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "NoteTranslator"
+      }
+    }
+  },
+  "dependencies": {
+    "afinn-165": "^2.0.2",
+    "afinn-165-financialmarketnews": "^3.0.0",
+    "apparatus": "^0.0.10",
+    "change-case": "^4.1.2",
+    "compromise": "^14.9.0",
+    "compromised": "^1.0.0",
+    "crypto": "^1.0.1",
+    "deepmerge": "^4.3.1",
+    "dom-serializer": "^2.0.0",
+    "domelementtype": "^2.3.0",
+    "domhandler": "^5.0.3",
+    "domutils": "^3.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "entities": "^4.5.0",
+    "fs-extra": "^11.1.1",
+    "graceful-fs": "^4.2.11",
+    "htmlparser2": "^9.0.0",
+    "is-plain-object": "^5.0.0",
+    "jquery": "^3.6.4",
+    "json-editor": "^0.7.28",
+    "jsonfile": "^6.1.0",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.2",
+    "natural": "^6.3.0",
+    "parse-srcset": "^1.0.2",
+    "picocolors": "^1.0.0",
+    "postcss": "^8.4.23",
+    "safe-stable-stringify": "^2.4.3",
+    "sanitize-html": "^2.10.0",
+    "sbd": "^1.0.19",
+    "source-map-js": "^1.0.2",
+    "stopwords-iso": "^1.1.0",
+    "sylvester": "^0.0.21",
+    "underscore": "^1.13.6",
+    "universalify": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron": "^24.3.0",
+    "electron-builder": "^23.6.0",
+    "electron-compile": "^6.4.4",
+    "electron-forge": "^5.2.4",
+    "json-server": "^0.17.3"
+  }
+}

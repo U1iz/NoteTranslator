@@ -1,0 +1,49 @@
+{
+    "word": [
+        "throttle",
+        "unencrypted",
+        "constructor",
+        "legal",
+        "persistently",
+        "applications",
+        "regardless",
+        "discard",
+        "phrase",
+        "dictionary",
+        "directory",
+        "isolation",
+        "specifies",
+        "avoid",
+        "Standalone",
+        "determine",
+        "embed",
+        "upgrade",
+        "transaction",
+        "retrieving",
+        "generic",
+        "handler",
+        "usage",
+        "polyfill",
+        "boundary",
+        "failure",
+        "chatgpt",
+        "the"
+    ],
+    "phrase": [
+        "theory explanation",
+        "persistently store",
+        "Retrieving data"
+    ],
+    "sentence": [
+        "this is a test.",
+        "IndexedDB is a way for you to persistently store data inside a user's browser.",
+        "Because it lets you create web applications with rich query abilities regardless of network availability, your applications can work both online and offline.This tutorial walks you through using the asynchronous API of IndexedDB.",
+        "If you are not familiar with IndexedDB, you should first read the IndexedDB key characteristics and basic terminology article.For the reference documentation on the IndexedDB API, see the IndexedDB API article and its subpages.",
+        "Error occurred in handler for 'fse-create': TypeError [ERR_INVALID_ARG_TYPE]: The \\.",
+        "this is another test.",
+        "Cannot set properties of undefined.",
+        "This article documents the types of objects used by IndexedDB, as well as the methods of the asynchronous API (the synchronous API was removed from spec).",
+        "Because the main and renderer processes have different responsibilities in Electron's process model, IPC is the only way to perform many common tasks, such as calling a native API from your UI or triggering changes in your web contents from native menus.",
+        "Generic error handler for all errors targeted at this database s requests."
+    ]
+}

@@ -1,0 +1,131 @@
+@import url(./float_translator.css);
+
+.translate-block {
+    display: flex;
+}
+
+#phonetic span {
+    margin-right: 1em;
+}
+
+.pre {
+    font-weight: 800;
+}
+
+.mean {
+    text-indent: 1em;
+}
+
+#bubbles-block {
+    opacity: 0;
+}
+
+#bubbles-block ul {
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(0, 2em)) !important; */
+    /* gap: 10px; */
+    flex-wrap: wrap;
+    margin: 0.2em 0;
+}
+
+#bubbles-block ul>li {
+    list-style-type: none;
+    white-space: pre-wrap;
+    background: #eee;
+    margin: 0.2em 0.5em;
+    padding: 0.2em 0.4em;
+    padding-right: 1em;
+}
+
+/* #bubbles-block ul>li:nth-child(odd) {
+    background: #666;
+} */
+.sentence-no-mark {
+    background: #d6c2c2 !important;
+}
+
+
+#result-block {
+    display: flex;
+    width: 100%;
+}
+
+#result-block>div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 20rem;
+}
+
+.pre {
+    list-style-type: none;
+}
+
+.mean-block {
+    /* list-style-type: decimal-leading-zero; */
+    list-style-type: none;
+    counter-reset: my-counter 0;
+}
+
+.mean:before {
+    content: counter(my-counter, decimal-leading-zero)"|- ";
+}
+
+.mean {
+    counter-increment: my-counter;
+}
+
+.bubble-list li {
+    position: relative;
+}
+
+.bubble-list li span {
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 0.5em);
+    top: -0.2em;
+    padding: 0 0.5em;
+    display: inline-block;
+    user-select: none;
+}
+
+.bubble-list li.bubble-item span {
+    transform: rotate(90deg);
+}
+
+.bubble-list li.bubble-item span:hover {
+    background: #ddd;
+}
+
+.bubble-list li.bubble-added span:hover {
+    background: #c04d4d;
+}
+
+.menu-add {
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    padding: 1px;
+}
+
+.menu-add button {
+    display: none;
+}
+
+.menu-add div {
+    cursor: pointer;
+    padding: 0.1em 0.3em;
+    background: #fff;
+}
+
+.menu-add div:hover {
+    background: #ccc;
+}
+
+.menu-on {
+    z-index: 1;
+}
+
+#bubble-submit {
+    display: none;
+}

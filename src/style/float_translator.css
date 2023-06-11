@@ -1,0 +1,61 @@
+#menu-translator {
+    position: absolute;
+    /* padding: 0.2em 0.5em; */
+    background: #ccc;
+    white-space: nowrap;
+}
+
+#transMenu_title {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#transMenu_title>h3 {
+    line-height: 0;
+    text-indent: 2em;
+}
+
+#transMenu_title aside {
+    opacity: 0;
+    display: flex;
+    margin-right: 2em;
+}
+
+#transMenu_title aside * {
+    margin-right: 1em;
+}
+
+#menu-mean td:nth-child(odd) {
+    font: 800 1em var(--mdn-font-family);
+}
+
+.menu_close_btn {
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    line-height: 100%;
+}
+
+.menu_close_btn:hover {
+    background: red;
+}
+
+#transMenu_drag {
+    cursor: move;
+    background: #999;
+    height: 1em;
+    width: 100%;
+}
+
+
+/*  */
+.drag {
+    user-select: none;
+}
