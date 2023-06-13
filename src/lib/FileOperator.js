@@ -3,6 +3,7 @@
  */
 
 const fs = require('fs');
+const { random } = require('lodash');
 const _path = require('path')
 
 // 文件操作
